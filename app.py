@@ -33,7 +33,7 @@ def tweets_processor():
     following = []
 
     def format_time(date_str):
-        date_object = datetime.strptime(date_str, '%Y-%d-%mT%H:%M:%SZ')
+        date_object = datetime.strptime(date_str, '%Y-%m-%dT%H:%M:%SZ')
         return date_object
 
     def order_tweets():
@@ -73,7 +73,7 @@ def tweets_processor():
     #date_str = '2019-08-02T17:55:09Z'
     #date_object = datetime.strptime(date_str, '%Y-%d-%mT%H:%M:%SZ')
     get_tweets()
-    order_tweets()
+    tweets_dictionary = order_tweets()
     #print ("The date is", date_object)
     #return None
     return tweets_dictionary

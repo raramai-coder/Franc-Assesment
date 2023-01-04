@@ -11,7 +11,7 @@
 		<p>Your timeline:</p>
 		<ul>
 			{%for status in tweets_processor%}
-			<li>{{ status }}</li>
+			<li>{{ status[0] }} - {{status[1]}}</li>
 			{% endfor %}
 		</ul>
 		{% endif %}
