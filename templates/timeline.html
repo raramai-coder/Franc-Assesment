@@ -1,0 +1,10 @@
+<html>
+	<body>
+		<p>Your tweets:</p>
+		<ul>
+			{%for status in tweets[username]%}
+			<li>{{ status['status'] }}</li>
+			{% endfor %}
+		</ul>
+	</body>
+</html>
