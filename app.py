@@ -1,11 +1,15 @@
 from flask import Flask, render_template, jsonify, Response, request
+import json
 
 app = Flask(__name__)
 
 @app.route('/')
 def index_view():
     username = request.args.get('username')
-    return render_template('index.html', username = username)
+    with open('./posts.json', 'r') as f:
+        data = json.load(f)
+        #print(data['Kyle'][0]['status'])
+    return render_template('index.html', username = username, tweets = data)
 
 @app.route('/users')
 def users_view():
