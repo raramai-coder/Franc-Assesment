@@ -37,7 +37,7 @@ def tweets_processor():
         return date_object
 
     def order_tweets():
-        ordered_tweets= sorted(tweets_dictionary.items(), key=lambda x:x[1])
+        ordered_tweets= sorted(tweets_dictionary.items(), key=lambda x:x[1], reverse=True)
         #print(ordered_tweets)
         return ordered_tweets
 
