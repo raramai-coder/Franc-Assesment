@@ -14,10 +14,12 @@ def index_view():
 @app.route('/timeline')
 def timeline_view():
     username = request.args.get('username')
+    with open('./users.json', 'r') as f:
+        userdata = json.load(f)
+        #print(data['Kyle'][0]['status'])
     with open('./posts.json', 'r') as f:
         data = json.load(f)
-        #print(data['Kyle'][0]['status'])
-    return render_template('timeline.html', username = username, tweets = data)
+    return render_template('timeline.html', username = username, tweets = data, users = userdata)
 
 @app.route('/users')
 def users_view():
