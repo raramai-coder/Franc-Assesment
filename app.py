@@ -31,6 +31,7 @@ def posts_view():
 def tweets_processor():
     tweets_dictionary = dict()
     following = []
+    username = request.args.get('username')
 
     def format_time(date_str):
         date_object = datetime.strptime(date_str, '%Y-%m-%dT%H:%M:%SZ')
@@ -42,7 +43,7 @@ def tweets_processor():
         return ordered_tweets
 
     def get_tweets():
-        username = request.args.get('username')
+        
         
         with open('./posts.json', 'r') as f:
             all_tweets = json.load(f)
@@ -72,8 +73,9 @@ def tweets_processor():
 
     #date_str = '2019-08-02T17:55:09Z'
     #date_object = datetime.strptime(date_str, '%Y-%d-%mT%H:%M:%SZ')
-    get_tweets()
-    tweets_dictionary = order_tweets()
+    if username !=None:
+        get_tweets()
+        tweets_dictionary = order_tweets()
     #print ("The date is", date_object)
     #return None
     return tweets_dictionary
