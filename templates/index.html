@@ -6,13 +6,16 @@
 		<p><a href="/?username=Kyle">example</a></p>
 		<p>Posts can be found <a href="/posts">here</a></p>
 		<p>Users and there follows can be found <a href="/users">here</a></p>
-		<p>Go to a timeline <a href="/timeline">here</a></p>
+		<!-- <p>Go to a timeline <a href="/timeline">here</a></p> -->
 		{% else %}
-		<p>Your tweets:</p>
+		<p>Your timeline:</p>
 		<ul>
 			{%for status in tweets[username]%}
 			<li>{{ status['status'] }}</li>
-			{% endfor %}
+			{% endfor %} {%for user in users%} {% if user in users[username] %} {%for
+			status in tweets[user]%}
+			<li>{{ status['status'] }}</li>
+			{% endfor %} {%endif%} {% endfor %}
 		</ul>
 		{% endif %}
 	</body>
