@@ -10,12 +10,9 @@
 		{% else %}
 		<p>Your timeline:</p>
 		<ul>
-			{%for status in tweets[username]%}
-			<li>{{ status['status'] }}</li>
-			{% endfor %} {%for user in users%} {% if user in users[username] %} {%for
-			status in tweets[user]%}
-			<li>{{ status['status'] }}</li>
-			{% endfor %} {%endif%} {% endfor %}
+			{%for status in tweets_processor%}
+			<li>{{ status }}</li>
+			{% endfor %}
 		</ul>
 		{% endif %}
 	</body>
