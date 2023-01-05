@@ -6,12 +6,15 @@
 		<p><a href="/?username=Kyle">example</a></p>
 		<p>Posts can be found <a href="/posts">here</a></p>
 		<p>Users and there follows can be found <a href="/users">here</a></p>
-		<!-- <p>Go to a timeline <a href="/timeline">here</a></p> -->
 		{% else %}
 		<p>Your timeline:</p>
 		<ul>
-			{%for status in tweets_processor%}
-			<li>{{ status[0] }} - {{status[1]}}</li>
+			{%for status in ordered_posts%}
+			<li>
+				{{ status[0] }} -
+				<a href="{{'/?username=%s'%status[1][1]}}">{{status[1][1]}}</a> -
+				{{status[1][0]}}
+			</li>
 			{% endfor %}
 		</ul>
 		{% endif %}

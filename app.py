@@ -7,13 +7,7 @@ app = Flask(__name__)
 @app.route('/')
 def index_view():
     username = request.args.get('username')
-    with open('./posts.json', 'r') as f:
-        data = json.load(f)
-        #print(data['Kyle'][0]['status'])
-    with open('./users.json', 'r') as f:
-        userdata = json.load(f)
-        #print(userdata['Franc'][0])
-    return render_template('index.html', username = username, tweets = data, users = userdata, tweets_processor = tweets_processor())
+    return render_template('index.html', username = username, ordered_posts = posts_processor())
 
 @app.route('/users')
 def users_view():
@@ -28,8 +22,8 @@ def posts_view():
     return Response(posts, mimetype="application/json")
 
 @app.context_processor
-def tweets_processor():
-    tweets_dictionary = dict()
+def posts_processor():
+    posts_dictionary = dict()
     following = []
     username = request.args.get('username')
 
@@ -37,48 +31,37 @@ def tweets_processor():
         date_object = datetime.strptime(date_str, '%Y-%m-%dT%H:%M:%SZ')
         return date_object
 
-    def order_tweets():
-        ordered_tweets= sorted(tweets_dictionary.items(), key=lambda x:x[1], reverse=True)
-        #print(ordered_tweets)
-        return ordered_tweets
+    def order_posts():
+        ordered_posts= sorted(posts_dictionary.items(), key=lambda x:x[1], reverse=True)
+        return ordered_posts
 
-    def get_tweets():
-        
-        
+    def get_posts():
         with open('./posts.json', 'r') as f:
-            all_tweets = json.load(f)
+            all_posts = json.load(f)
         with open('./users.json', 'r') as f:
             userdata = json.load(f)
         
         for user in userdata:
             if user in userdata[username]:
-                #print(user)
                 following.append(user)
             elif user == username:
                 if len(user)!=0:
                     following.append(user)
         
-        for tweet in all_tweets:
-            if tweet in following:
-                #print(all_tweets[tweet][0]['status'])
-                values = range(len(all_tweets[tweet])) 
+        for post in all_posts:
+            if post in following:
+                values = range(len(all_posts[post])) 
                 for i in values:
-                    status = all_tweets[tweet][i]['status']
-                    time = format_time(all_tweets[tweet][i]['time'])
-                    #print (time)
-                    tweets_dictionary[status] = time
-        
-        #print(tweets_dictionary)
+                    status = all_posts[post][i]['status']
+                    time = format_time(all_posts[post][i]['time'])
+                    posts_dictionary[status] = [time,post]
+ 
 
-
-    #date_str = '2019-08-02T17:55:09Z'
-    #date_object = datetime.strptime(date_str, '%Y-%d-%mT%H:%M:%SZ')
     if username !=None:
-        get_tweets()
-        tweets_dictionary = order_tweets()
-    #print ("The date is", date_object)
-    #return None
-    return tweets_dictionary
+        get_posts()
+        posts_dictionary = order_posts()
+
+    return posts_dictionary
 
 
 if __name__ == '__main__':
