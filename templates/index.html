@@ -11,8 +11,8 @@
 		<ul>
 			{%for status in ordered_posts%}
 			<li>
-				{{ status[0] }} -
-				<a href="{{'/?username=%s'%status[1][1]}}">{{status[1][1]}}</a> -
+				<p style="font-size: 20px">{{ status[0] }}</p>
+				- <a href="{{'/?username=%s'%status[1][1]}}">{{status[1][1]}}</a> -
 				{{status[1][0]}}
 			</li>
 			{% endfor %}
